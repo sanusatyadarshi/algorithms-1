@@ -1,6 +1,6 @@
 # Contributing
 
-We love pull requests from everyone. By contributing to this repository, you
+We love pull requests from everyone.. By contributing to this repository, you
 agree to abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Get Started  
