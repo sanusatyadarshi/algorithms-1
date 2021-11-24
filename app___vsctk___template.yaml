@@ -1,0 +1,9 @@
+Resources:
+  algorithms1:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: algorithms/arrays/three_sum.three_sum
+      CodeUri: /Users/sanu.s/Documents/Repos/Personal/algorithms-1
+      Runtime: python3.8
+      Environment:
+        Variables: {}
