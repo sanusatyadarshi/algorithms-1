@@ -42,7 +42,7 @@ class TestSuite(unittest.TestCase):
         self.assertEqual(11, binary_search_recur(array, 0, 11, 6))
         self.assertEqual(-1, binary_search_recur(array, 0, 11, 7))
         self.assertEqual(-1, binary_search_recur(array, 0, 11, -1))
-    
+
     def test_ternary_search(self):
         array = [1, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6]
         self.assertEqual(10, ternary_search(0, 11, 5, array))
@@ -50,7 +50,6 @@ class TestSuite(unittest.TestCase):
         self.assertEqual(-1, ternary_search(0, 10, 5, array))
         self.assertEqual(-1, ternary_search(0, 11, 7, array))
         self.assertEqual(-1, ternary_search(0, 11, -1, array))
-        
 
     def test_last_occurrence(self):
         array = [1, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6, 6, 6]
@@ -90,6 +89,11 @@ class TestSuite(unittest.TestCase):
         array = [5, 7, 7, 8, 8, 8, 10]
         self.assertEqual([3, 5], search_range(array, 8))
         self.assertEqual([1, 2], search_range(array, 7))
+        self.assertEqual([-1, -1], search_range(array, 11))
+
+        array = [5, 7, 7, 7, 7, 8, 8, 8, 8, 10]
+        self.assertEqual([5, 8], search_range(array, 8))
+        self.assertEqual([1, 4], search_range(array, 7))
         self.assertEqual([-1, -1], search_range(array, 11))
 
     def test_find_min_rotate(self):

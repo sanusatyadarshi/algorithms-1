@@ -28,7 +28,7 @@ class TestBinaryHeap(unittest.TestCase):
         self.min_heap.insert(2)
         self.assertEqual([0, 2, 50, 4, 55, 90, 87, 7],
                          self.min_heap.heap)
-        self.assertEqual(7, self.min_heap.currentSize)
+        self.assertEqual(7, self.min_heap.current_size)
 
     def test_remove_min(self):
         ret = self.min_heap.remove_min()
@@ -38,7 +38,7 @@ class TestBinaryHeap(unittest.TestCase):
         self.assertEqual(4, ret)
         self.assertEqual([0, 7, 50, 87, 55, 90],
                          self.min_heap.heap)
-        self.assertEqual(5, self.min_heap.currentSize)
+        self.assertEqual(5, self.min_heap.current_size)
 
 
 class TestSuite(unittest.TestCase):
@@ -55,10 +55,12 @@ class TestSuite(unittest.TestCase):
         self.assertEqual([3, 3, 5, 5, 6, 7], max_sliding_window(nums, 3))
 
     def test_k_closest_points(self):
-        points = [(1, 0), (2, 3), (5, 2), (1, 1), (2, 8), (10, 2), (-1, 0), (-2, -2)]
+        points = [(1, 0), (2, 3), (5, 2), (1, 1), (2, 8), (10, 2),
+                  (-1, 0), (-2, -2)]
         self.assertEqual([(-1, 0), (1, 0)], k_closest(points, 2))
         self.assertEqual([(1, 1), (-1, 0), (1, 0)], k_closest(points, 3))
-        self.assertEqual([(-2, -2), (1, 1), (1, 0), (-1, 0)], k_closest(points, 4))
+        self.assertEqual([(-2, -2), (1, 1), (1, 0),
+                          (-1, 0)], k_closest(points, 4))
         self.assertEqual([(10, 2), (2, 8), (5, 2), (-2, -2), (2, 3),
                           (1, 0), (-1, 0), (1, 1)], k_closest(points, 8))
 

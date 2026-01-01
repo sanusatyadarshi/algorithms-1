@@ -22,11 +22,11 @@ from algorithms.maths import (
     magic_number,
     find_order,
     find_primitive_root,
-    alice_private_key, alice_public_key, bob_private_key, bob_public_key, alice_shared_key, bob_shared_key, diffie_hellman_key_exchange,
     num_digits,
-    alice_private_key, alice_public_key, bob_private_key, bob_public_key, alice_shared_key, bob_shared_key,
     diffie_hellman_key_exchange, krishnamurthy_number,
+    num_perfect_squares,
     chinese_remainder_theorem,
+    fft
 )
 
 import unittest
@@ -131,13 +131,15 @@ class TestGcd(unittest.TestCase):
         self.assertEqual(1, gcd(13, 17))
 
     def test_gcd_non_integer_input(self):
-        with pytest.raises(ValueError, match=r"Input arguments are not integers"):
+        with pytest.raises(ValueError,
+                           match=r"Input arguments are not integers"):
             gcd(1.0, 5)
             gcd(5, 6.7)
             gcd(33.8649, 6.12312312)
 
     def test_gcd_zero_input(self):
-        with pytest.raises(ValueError, match=r"One or more input arguments equals zero"):
+        with pytest.raises(ValueError,
+                           match=r"One or more input arguments equals zero"):
             gcd(0, 12)
             gcd(12, 0)
             gcd(0, 0)
@@ -157,7 +159,8 @@ class TestGcd(unittest.TestCase):
         self.assertEqual(1, lcm(-1, 1))
 
     def test_lcm_zero_input(self):
-        with pytest.raises(ValueError, match=r"One or more input arguments equals zero"):
+        with pytest.raises(ValueError,
+                           match=r"One or more input arguments equals zero"):
             lcm(0, 12)
             lcm(12, 0)
             lcm(0, 0)
@@ -169,7 +172,6 @@ class TestGcd(unittest.TestCase):
     def test_gcd_bit(self):
         self.assertEqual(4, gcd_bit(8, 12))
         self.assertEqual(1, gcd(13, 17))
-
 
 
 class TestGenerateStroboGrammatic(unittest.TestCase):
@@ -216,7 +218,8 @@ class TestModularInverse(unittest.TestCase):
         # checks if x * x_inv == 1 (mod m)
         self.assertEqual(1, 2 * modular_inverse.modular_inverse(2, 19) % 19)
         self.assertEqual(1, 53 * modular_inverse.modular_inverse(53, 91) % 91)
-        self.assertEqual(1, 2 * modular_inverse.modular_inverse(2, 1000000007) % 1000000007)
+        self.assertEqual(1, 2 * modular_inverse.modular_inverse(2, 1000000007)
+                         % 1000000007)
         self.assertRaises(ValueError, modular_inverse.modular_inverse, 2, 20)
 
 
@@ -295,7 +298,8 @@ class TestPythagoras(unittest.TestCase):
     """
 
     def test_pythagoras(self):
-        self.assertEqual("Hypotenuse = 3.605551275463989", pythagoras(3, 2, "?"))
+        self.assertEqual("Hypotenuse = 3.605551275463989",
+                         pythagoras(3, 2, "?"))
 
 
 class TestRabinMiller(unittest.TestCase):
@@ -417,7 +421,8 @@ class TestFindPrimitiveRoot(unittest.TestCase):
         self.assertListEqual([0], find_primitive_root(1))
         self.assertListEqual([2, 3], find_primitive_root(5))
         self.assertListEqual([], find_primitive_root(24))
-        self.assertListEqual([2, 5, 13, 15, 17, 18, 19, 20, 22, 24, 32, 35], find_primitive_root(37))
+        self.assertListEqual([2, 5, 13, 15, 17, 18, 19, 20, 22, 24, 32, 35],
+                             find_primitive_root(37))
 
 
 class TestFindOrder(unittest.TestCase):
@@ -434,6 +439,7 @@ class TestFindOrder(unittest.TestCase):
         self.assertEqual(-1, find_order(128, 256))
         self.assertEqual(352, find_order(3, 353))
 
+
 class TestKrishnamurthyNumber(unittest.TestCase):
     """[summary]
     Test for the file krishnamurthy_number.py
@@ -441,7 +447,7 @@ class TestKrishnamurthyNumber(unittest.TestCase):
     Arguments:
         unittest {[type]} -- [description]
     """
-    
+
     def test_krishnamurthy_number(self):
         self.assertFalse(krishnamurthy_number(0))
         self.assertTrue(krishnamurthy_number(2))
@@ -490,12 +496,32 @@ class TestNumberOfDigits(unittest.TestCase):
         unittest {[type]} -- [description]
     """
     def test_num_digits(self):
-        self.assertEqual(2,num_digits(12))
-        self.assertEqual(5,num_digits(99999))
-        self.assertEqual(1,num_digits(8))
-        self.assertEqual(1,num_digits(0))        
-        self.assertEqual(1,num_digits(-5))
-        self.assertEqual(3,num_digits(-254))
+        self.assertEqual(2, num_digits(12))
+        self.assertEqual(5, num_digits(99999))
+        self.assertEqual(1, num_digits(8))
+        self.assertEqual(1, num_digits(0))
+        self.assertEqual(1, num_digits(-5))
+        self.assertEqual(3, num_digits(-254))
+
+
+
+class TestNumberOfPerfectSquares(unittest.TestCase):
+    """[summary]
+    Test for the file num_perfect_squares.py
+
+    Arguments:
+        unittest {[type]} -- [description]
+    """
+    def test_num_perfect_squares(self):
+        self.assertEqual(4,num_perfect_squares(31))
+        self.assertEqual(3,num_perfect_squares(12))
+        self.assertEqual(2,num_perfect_squares(13))
+        self.assertEqual(2,num_perfect_squares(10))
+        self.assertEqual(4,num_perfect_squares(1500))        
+        self.assertEqual(2,num_perfect_squares(1548524521))
+        self.assertEqual(3,num_perfect_squares(9999999993))
+        self.assertEqual(1,num_perfect_squares(9))
+
 
 class TestChineseRemainderSolver(unittest.TestCase):
     def test_k_three(self):
@@ -504,7 +530,8 @@ class TestChineseRemainderSolver(unittest.TestCase):
         # solves the system of equations
         num = [3, 7, 10]
         rem = [2, 3, 3]
-        self.assertEqual(chinese_remainder_theorem.solve_chinese_remainder(num, rem), 143)
+        self.assertEqual(chinese_remainder_theorem.
+                         solve_chinese_remainder(num, rem), 143)
 
     def test_k_five(self):
         # Example which should give the answer 3383
@@ -512,7 +539,8 @@ class TestChineseRemainderSolver(unittest.TestCase):
         # solves the system of equations
         num = [3, 5, 7, 11, 26]
         rem = [2, 3, 2, 6, 3]
-        self.assertEqual(chinese_remainder_theorem.solve_chinese_remainder(num, rem), 3383)
+        self.assertEqual(chinese_remainder_theorem.
+                         solve_chinese_remainder(num, rem), 3383)
 
     def test_exception_non_coprime(self):
         # There should be an exception when all
@@ -527,6 +555,43 @@ class TestChineseRemainderSolver(unittest.TestCase):
         rem = []
         with self.assertRaises(Exception):
             chinese_remainder_theorem.solve_chinese_remainder(num, rem)
+
+
+class TestFFT(unittest.TestCase):
+    """[summary]
+    Test for the file fft.py
+
+    Arguments:
+        unittest {[type]} -- [description]
+    """
+    def test_real_numbers(self):
+        x = [1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+        y = [4.000, 2.613, 0.000, 1.082, 0.000, 1.082, 0.000, 2.613]
+        # abs(complex) returns the magnitude
+        result = [float("%.3f" % abs(f)) for f in fft.fft(x)]
+        self.assertEqual(result, y)
+    
+    def test_all_zero(self):
+        x = [0.0, 0.0, 0.0, 0.0]
+        y = [0.0, 0.0, 0.0, 0.0]
+        result = [float("%.1f" % abs(f)) for f in fft.fft(x)]
+        self.assertEqual(result, y)
+    
+    def test_all_ones(self):
+        x = [1.0, 1.0, 1.0, 1.0]
+        y = [4.0, 0.0, 0.0, 0.0]
+        result = [float("%.1f" % abs(f)) for f in fft.fft(x)]
+        self.assertEqual(result, y)
+
+    def test_complex_numbers(self):
+        x = [2.0+2j, 1.0+3j, 3.0+1j, 2.0+2j]
+        real = [8.0, 0.0, 2.0, -2.0]
+        imag = [8.0, 2.0, -2.0, 0.0]
+        realResult = [float("%.1f" % f.real) for f in fft.fft(x)]
+        imagResult = [float("%.1f" % f.imag) for f in fft.fft(x)]
+        self.assertEqual(real, realResult)
+        self.assertEqual(imag, imagResult)
+        
 
 if __name__ == "__main__":
     unittest.main()
